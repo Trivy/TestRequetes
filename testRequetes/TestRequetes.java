@@ -1,7 +1,6 @@
 package testRequetes;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,9 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.table.DefaultTableModel;
 
 import testRequetes.testConnection.TestConnection;
 
@@ -29,8 +28,8 @@ public class TestRequetes extends JFrame{
 
 		// the different components we need
 		JPanel content = new JPanel();
-		JPanel top = new JPanel();
 		JPanel aux = new JPanel();
+		JSplitPane split;
 		JTextArea jta= new JTextArea(3,1);
 		JButton button = new JButton("Tester !");
 		
@@ -63,17 +62,15 @@ public class TestRequetes extends JFrame{
 	    aux.setLayout(bl1);
 		aux.add(button, BorderLayout.WEST);
 		
-		// Describes the top area of the window
-		BorderLayout bl0 = new BorderLayout();
-		top.setLayout(bl0);
-		top.add(new JScrollPane(jta), BorderLayout.SOUTH);
-		top.add(aux,BorderLayout.NORTH);	
+		// central component: split
+		split = new JSplitPane(JSplitPane.VERTICAL_SPLIT, new JScrollPane(jta), new JScrollPane(table));
+		split.setDividerLocation(100);
 		
 		// Integrates all the components into the frame
 		BorderLayout bl = new BorderLayout();
 		content.setLayout(bl);
-		content.add(top, BorderLayout.NORTH);
-		content.add(new JScrollPane(table), BorderLayout.CENTER);
+		content.add(aux, BorderLayout.NORTH);
+		content.add(split, BorderLayout.CENTER);
 		content.add(label, BorderLayout.SOUTH);
 		
 		this.setLocationRelativeTo(null);
