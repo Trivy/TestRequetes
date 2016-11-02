@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class TestConnection {
@@ -59,18 +60,23 @@ public class TestConnection {
 				titles[i-1]=resultMeta.getColumnName(i);
 			
 			List<Object[]> l = new ArrayList();
-			Object[] temp = new Object[nbCol];
 			
 			// get the results, convert it into a list:
 			while(rs.next()){
-				for (int i =1; i <= nbCol; i++)
+				Object[] temp = new Object[nbCol];
+				for (int i =1; i <= nbCol; i++){
 					temp[i-1]=rs.getObject(i).toString();
-				
+				}
 				l.add(temp);
 			}
 			
-			data = l.toArray(new Object[l.size()][]);
+			rs.close();
+			state.close();
 			
+			data = l.toArray(new Object[l.size()][]);
+		} catch (SQLException e){
+			JOptionPane jop = new JOptionPane();
+			jop.showMessageDialog(null, e.getMessage(),"ERREUR !",JOptionPane.ERROR_MESSAGE);
 		} catch (Exception e){
 			e.printStackTrace();
 		}
