@@ -18,7 +18,7 @@ import testRequetes.testConnection.TestConnection;
 
 public class TestRequetes extends JFrame{
 	private JTable table = new JTable();
-	private JLabel label = new JLabel("test");
+	private JLabel label = new JLabel("Initialisation");
 	
     // the class implementing the connection with the database
 	private TestConnection tConn = TestConnection.getInstance();
@@ -38,13 +38,8 @@ public class TestRequetes extends JFrame{
 		
 		
 		// Provisional config of table:
-		Object[][] data={
-			      {"Cysboy", "28 ans", new Boolean(true), "supprimer la ligne"},
-			      {"BZHHydde", "28 ans", new Boolean(false), "supprimer la ligne"},
-			      {"IamBow", "24 ans", new Boolean(false), "supprimer la ligne"},
-			      {"FunMan", "32 ans", new Boolean(true), "supprimer la ligne"}
-			    };
-	    String  title[] = {"Pseudo", "Age", "OK ?", "Suppression"};
+		Object[][] data={{}};
+	    String  title[] = {};
 	    
 	    table = new JTable(data, title);
 	    
@@ -53,8 +48,10 @@ public class TestRequetes extends JFrame{
 		class ButtonListener implements ActionListener{
 			
 			public void actionPerformed(ActionEvent event){
-				System.out.println("J'ai cru voir une requête !");
+				long start = System.currentTimeMillis();
 				table.setModel(tConn.outputQuery(jta.getText()));
+				long time = System.currentTimeMillis() - start;
+				label.setText("La requête a été exécutée en "+time+" ms et a retourné "+table.getModel().getRowCount()+" ligne(s).");
 			}
 		}
 	    button.addActionListener(new ButtonListener());
