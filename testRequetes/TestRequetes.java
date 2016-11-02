@@ -1,6 +1,7 @@
 package testRequetes;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +30,7 @@ public class TestRequetes extends JFrame{
 		// the different components we need
 		JPanel content = new JPanel();
 		JPanel top = new JPanel();
+		JPanel aux = new JPanel();
 		JTextArea jta= new JTextArea(3,1);
 		JButton button = new JButton("Tester !");
 		
@@ -55,13 +57,17 @@ public class TestRequetes extends JFrame{
 			}
 		}
 	    button.addActionListener(new ButtonListener());
-		
+	    button.setPreferredSize(new Dimension(90,30));
+	    
+	    BorderLayout bl1 = new BorderLayout(5,5);
+	    aux.setLayout(bl1);
+		aux.add(button, BorderLayout.WEST);
 		
 		// Describes the top area of the window
 		BorderLayout bl0 = new BorderLayout();
 		top.setLayout(bl0);
 		top.add(new JScrollPane(jta), BorderLayout.SOUTH);
-		top.add(button,BorderLayout.NORTH);	
+		top.add(aux,BorderLayout.NORTH);	
 		
 		// Integrates all the components into the frame
 		BorderLayout bl = new BorderLayout();
